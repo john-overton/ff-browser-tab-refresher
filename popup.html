@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Refresher & Page Navigator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Tab Refresher & Navigator</h1>
+    </div>
+    
+    <div class="tabs">
+      <button class="tab-button active" data-tab="refresh">Tab Refresh</button>
+      <button class="tab-button" data-tab="navigation">Page Navigation</button>
+      <button class="tab-button" data-tab="jobs">Running Jobs</button>
+    </div>
+
+    <div class="tab-content active" id="refresh-tab">
+      <div class="refresh-config">
+        <h2>Tab Refresh Configuration</h2>
+        <div class="input-group">
+          <label for="refresh-interval">Refresh Interval (seconds):</label>
+          <input type="number" id="refresh-interval" min="1" value="60">
+        </div>
+        <button id="start-refresh" class="primary-button">Start Refresh</button>
+      </div>
+    </div>
+
+    <div class="tab-content" id="navigation-tab">
+      <div class="navigation-config">
+        <h2>Page Navigation Steps</h2>
+        <div id="steps-container"></div>
+        <button id="add-step" class="secondary-button">Add Step</button>
+        <button id="save-steps" class="primary-button">Save Configuration</button>
+      </div>
+    </div>
+
+    <div class="tab-content" id="jobs-tab">
+      <div class="jobs-list">
+        <h2>Active Jobs</h2>
+        <div id="active-jobs"></div>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

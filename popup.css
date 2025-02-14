@@ -1,0 +1,139 @@
+:root {
+  --primary-blue: #57afeb;
+  --primary-cyan: #57ebe9;
+  --primary-mint: #57ebab;
+  --primary-green: #57eb6e;
+  --primary-yellow: #ebdd57;
+  --primary-orange: #eb9f57;
+  --primary-red: #eb6157;
+  --dark: #010300;
+  --light: #f3fef0;
+}
+
+body {
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+.container {
+  padding: 16px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  color: var(--primary-blue);
+  font-size: 24px;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--light);
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: var(--primary-blue);
+  color: var(--light);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--primary-cyan);
+  border-radius: 4px;
+  background-color: var(--light);
+}
+
+.primary-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-blue);
+  color: var(--light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: var(--primary-cyan);
+}
+
+.secondary-button {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--primary-blue);
+  border-radius: 4px;
+  background-color: var(--light);
+  color: var(--primary-blue);
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+  background-color: var(--primary-blue);
+  color: var(--light);
+}
+
+.step-item {
+  background-color: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.jobs-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.job-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: white;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
