@@ -14,6 +14,7 @@
       <button class="tab-button active" data-tab="refresh">Tab Refresh</button>
       <button class="tab-button" data-tab="navigation">Page Navigation</button>
       <button class="tab-button" data-tab="jobs">Running Jobs</button>
+      <button class="tab-button" data-tab="elements">Elements List</button>
     </div>
 
     <div class="tab-content active" id="refresh-tab">
@@ -40,6 +41,14 @@
       <div class="jobs-list">
         <h2>Active Jobs</h2>
         <div id="active-jobs"></div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="elements-tab">
+      <div class="elements-config">
+        <h2>Page Elements</h2>
+        <button id="scan-elements" class="primary-button">Scan Page Elements</button>
+        <div id="elements-list"></div>
       </div>
     </div>
   </div>

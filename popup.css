@@ -137,3 +137,41 @@ body {
   margin-bottom: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+.elements-section {
+    margin-bottom: 1rem;
+}
+
+.elements-section h3 {
+    margin: 0.5rem 0;
+    color: #333;
+    font-size: 14px;
+}
+
+.elements-group {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.element-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    transition: background-color 0.2s;
+}
+
+.element-item:last-child {
+    border-bottom: none;
+}
+
+.element-item:hover {
+    background-color: #f0f0f0;
+}
+
+#scan-elements {
+    margin-bottom: 1rem;
+    width: 100%;
+}

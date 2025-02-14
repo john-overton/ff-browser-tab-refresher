@@ -113,9 +113,110 @@ function updateTimer(nextRefresh) {
   timer.textContent = `Next refresh in: ${minutes}m ${seconds % 60}s`;
 }
 
+// Function to scan page elements
+function scanPageElements() {
+    console.log('Starting scanPageElements in content.js');
+    
+    const icons = Array.from(document.querySelectorAll('img, svg, [class*="icon"]')).map(el => ({
+        type: 'icon',
+        text: el.alt || el.title || el.className,
+        xpath: getXPath(el)
+    }));
+    console.log('Found icons:', icons.length);
+
+    const buttons = Array.from(document.querySelectorAll('button, [role="button"], input[type="button"], input[type="submit"]')).map(el => ({
+        type: 'button',
+        text: el.textContent || el.value || el.title,
+        xpath: getXPath(el)
+    }));
+    console.log('Found buttons:', buttons.length);
+
+    const links = Array.from(document.querySelectorAll('a')).map(el => ({
+        type: 'link',
+        text: el.textContent || el.title,
+        xpath: getXPath(el)
+    }));
+    console.log('Found links:', links.length);
+
+    const result = { icons, buttons, links };
+    console.log('Returning scanned elements:', result);
+    return result;
+}
+
+// Function to get XPath of an element
+function getXPath(element) {
+    if (!element) return '';
+    if (element.id) return `//*[@id="${element.id}"]`;
+    
+    const parts = [];
+    while (element && element.nodeType === Node.ELEMENT_NODE) {
+        let siblings = Array.from(element.parentNode.children).filter(e => e.tagName === element.tagName);
+        if (siblings.length > 1) {
+            const index = siblings.indexOf(element) + 1;
+            parts.unshift(`${element.tagName.toLowerCase()}[${index}]`);
+        } else {
+            parts.unshift(element.tagName.toLowerCase());
+        }
+        element = element.parentNode;
+    }
+    return `/${parts.join('/')}`;
+}
+
+// Function to highlight element
+function highlightElement(xpath) {
+    // Remove any existing highlight
+    const existing = document.querySelector('.element-highlight');
+    if (existing) existing.remove();
+
+    const element = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    if (!element) return;
+
+    const highlight = document.createElement('div');
+    highlight.className = 'element-highlight';
+    const rect = element.getBoundingClientRect();
+    
+    highlight.style.cssText = `
+        position: fixed;
+        border: 2px solid #ff4081;
+        background-color: rgba(255, 64, 129, 0.2);
+        pointer-events: none;
+        z-index: 10000;
+        transition: all 0.2s ease-in-out;
+        top: ${rect.top + window.scrollY}px;
+        left: ${rect.left + window.scrollX}px;
+        width: ${rect.width}px;
+        height: ${rect.height}px;
+    `;
+    
+    document.body.appendChild(highlight);
+}
+
 // Listen for messages from background script
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'updateTimer') {
     updateTimer(message.nextRefresh);
   }
+});
+
+// Listen for messages from popup
+console.log('Setting up content script message listener');
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log('Received message in content script:', message);
+    
+    if (message.action === 'scanElements') {
+        console.log('Handling scanElements action');
+        const elements = scanPageElements();
+        console.log('Sending response back to popup');
+        sendResponse(elements);
+    } else if (message.action === 'highlightElement') {
+        console.log('Handling highlightElement action:', message.xpath);
+        highlightElement(message.xpath);
+        sendResponse(true);
+    } else if (message.action === 'removeHighlight') {
+        console.log('Handling removeHighlight action');
+        const highlight = document.querySelector('.element-highlight');
+        if (highlight) highlight.remove();
+        sendResponse(true);
+    }
+    return true; // Required for async response
 });
